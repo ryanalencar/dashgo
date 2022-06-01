@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { Input } from "../components/Form";
 
-const Home: NextPage = () => {
+const SignIn: NextPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
@@ -19,11 +19,11 @@ const Home: NextPage = () => {
         w="100%"
         maxW={360}
         bg="gray.800"
-        p={8}
+        p="8"
         borderRadius={8}
         flexDir="column"
       >
-        <Stack spacing={6}>
+        <Stack spacing="4">
           <Input name="email" label="E-mail" />
           <Input
             name="password"
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
           />
         </Stack>
 
-        <Button type="submit" mt={6} colorScheme="pink" size="lg">
+        <Button type="submit" mt="6" colorScheme="pink" size="lg">
           Entrar
         </Button>
       </Flex>
@@ -43,4 +43,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default SignIn;
