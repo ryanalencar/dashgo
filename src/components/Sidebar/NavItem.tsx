@@ -10,7 +10,7 @@ export default function NavItem({ icon, text, ...rest }: INavItemProps) {
   return (
     <Link display="flex" style={{ alignContent: "center" }} {...rest}>
       <Icon as={icon} fontSize="20" />
-      <Text ml="4" fontWeight="medium">
+      <Text ml="4" fontWeight="medium" textTransform="capitalize">
         {text}
       </Text>
     </Link>

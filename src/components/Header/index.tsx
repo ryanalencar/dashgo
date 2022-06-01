@@ -13,12 +13,13 @@ import {
   RiSearchLine,
   RiUserAddLine,
 } from "react-icons/ri";
+
 export default function Header() {
   return (
     <Flex
       as="header"
       w="100%"
-      maxW={1120}
+      maxW={1480}
       h="20"
       mx="auto"
       mt="4"
