@@ -1,5 +1,18 @@
-import { Flex, Icon, Input, Text } from "@chakra-ui/react";
-import { RiSearchLine } from "react-icons/ri";
+import {
+  Avatar,
+  Box,
+  Flex,
+  HStack,
+  Icon,
+  IconButton,
+  Input,
+  Text,
+} from "@chakra-ui/react";
+import {
+  RiNotificationLine,
+  RiSearchLine,
+  RiUserAddLine,
+} from "react-icons/ri";
 export default function Header() {
   return (
     <Flex
@@ -40,7 +53,52 @@ export default function Header() {
           placeholder="Buscar na plataforma"
           _placeholder={{ color: "gray.500" }}
         />
-        <Icon as={RiSearchLine} fontSize="24" />
+        <Icon as={RiSearchLine} fontSize="20" />
+      </Flex>
+
+      <Flex align="center" ml="auto">
+        <HStack
+          spacing="4"
+          mx="8"
+          pr="8"
+          py="1"
+          color="gray.300"
+          borderRightWidth={1}
+          borderColor="gray.700"
+        >
+          <IconButton
+            icon={<RiNotificationLine />}
+            aria-label="Notifications"
+            fontSize="20"
+            variant="unstyled"
+            _focus={{ boxShadow: "0", color: "pink.500" }}
+            _hover={{ color: "gray.500" }}
+          />
+          <IconButton
+            icon={<RiUserAddLine />}
+            aria-label="Add User"
+            fontSize="20"
+            variant="unstyled"
+            _focus={{ boxShadow: "0", color: "pink.500" }}
+            _hover={{ color: "gray.500" }}
+          />
+        </HStack>
+
+        <Flex align="center">
+          <Box mr="4" textAlign="right">
+            <Text>Ryan Alencar</Text>
+            <Text color="gray.300" fontSize="small">
+              ryanalencarbarbosa1701@gmail.com
+            </Text>
+          </Box>
+
+          <Avatar
+            size="md"
+            name="Ryan Alencar"
+            src="https://github.com/ryanalencar.png"
+            bg="pink.500"
+          />
+        </Flex>
       </Flex>
     </Flex>
   );
