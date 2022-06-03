@@ -1,6 +1,7 @@
 import { Box, Flex, SimpleGrid, Text, theme } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 
+import Content from "../components/common/Content";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
@@ -45,7 +46,7 @@ export default function DashBoard() {
     <Flex direction="column" h="100vh">
       <Header />
 
-      <Flex w="100%" my="6" maxW={1480} mx="auto" px="6">
+      <Content>
         <Sidebar />
 
         <SimpleGrid
@@ -67,7 +68,7 @@ export default function DashBoard() {
             <Chart type="area" height={160} options={options} series={series} />
           </Box>
         </SimpleGrid>
-      </Flex>
+      </Content>
     </Flex>
   );
 }
