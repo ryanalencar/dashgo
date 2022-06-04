@@ -22,8 +22,12 @@ export default function Sidebar() {
             geral
           </Text>
           <Stack spacing="4" mt="8" align="stretch">
-            <NavItem icon={RiDashboardLine} text="dashboard" />
-            <NavItem icon={RiContactsLine} text="usuários" />
+            <NavItem
+              href="/dashboard"
+              icon={RiDashboardLine}
+              text="dashboard"
+            />
+            <NavItem href="/users" icon={RiContactsLine} text="usuários" />
           </Stack>
         </Box>
         <Box>
@@ -36,8 +40,8 @@ export default function Sidebar() {
             automação
           </Text>
           <Stack spacing="4" mt="8" align="stretch">
-            <NavItem icon={RiInputMethodLine} text="formulários" />
-            <NavItem icon={RiGitMergeLine} text="automação" />
+            <NavItem href="" icon={RiInputMethodLine} text="formulários" />
+            <NavItem href="" icon={RiGitMergeLine} text="automação" />
           </Stack>
         </Box>
       </Stack>
