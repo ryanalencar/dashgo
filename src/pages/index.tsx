@@ -1,17 +1,11 @@
 import { Button, Flex, Stack } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import type { NextPage } from "next";
-import { useState } from "react";
 
 import { Input } from "../components/Form";
+import PasswordInput from "../components/Form/Input/PasswordInput";
 
 const SignIn: NextPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleShowPassword = () => {
-    setShowPassword((oldShowPassword) => !oldShowPassword);
-  };
-
   return (
     <Flex w="100vw" h="100vh" align="center" justify="center">
       <Flex
@@ -25,14 +19,7 @@ const SignIn: NextPage = () => {
       >
         <Stack spacing="4">
           <Input name="email" label="E-mail" />
-          <Input
-            name="password"
-            label="Senha"
-            type={showPassword ? "text" : "password"}
-            icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
-            ariaLabel={showPassword ? "Hide Password" : "Show Password"}
-            onClick={handleShowPassword}
-          />
+          <PasswordInput name="password" />
         </Stack>
 
         <Button type="submit" mt="6" colorScheme="pink" size="lg">
