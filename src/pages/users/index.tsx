@@ -14,12 +14,15 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 
 import DefaultPageWrapper from "../../components/common/DefaultPageWrapper";
 import Pagination from "../../components/Pagination";
 
 export default function UserList() {
+  const router = useRouter();
+
   return (
     <DefaultPageWrapper>
       <Flex mb="8" justify="space-between" align="center">
@@ -27,10 +30,13 @@ export default function UserList() {
           Usuários
         </Heading>
         <Button
+          as="a"
           size="sm"
           fontSize="small"
           colorScheme="pink"
           leftIcon={<Icon as={RiAddLine} fontSize="18" />}
+          style={{ cursor: "pointer" }}
+          onClick={() => router.push("/users/create")}
         >
           Criar novo
         </Button>

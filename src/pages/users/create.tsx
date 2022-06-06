@@ -1,9 +1,45 @@
+import {
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  HStack,
+  SimpleGrid,
+  VStack,
+} from "@chakra-ui/react";
 import DefaultPageWrapper from "../../components/common/DefaultPageWrapper";
+import { Input } from "../../components/Form";
+import PasswordInput from "../../components/Form/Input/PasswordInput";
 
 export default function CreateUser() {
   return (
     <DefaultPageWrapper>
-      <h1>aaa</h1>
+      <Heading size="lg" fontWeight="normal">
+        Cria Usuário
+      </Heading>
+
+      <Divider my="6" borderColor="gray.700" />
+
+      <VStack spacing="8">
+        <SimpleGrid w="100%" minChildWidth="240px" spacing="8">
+          <Input name="name" label="Nome completo" />
+          <Input name="email" type="email" label="E-mail" />
+        </SimpleGrid>
+        <SimpleGrid w="100%" minChildWidth="240px" spacing="8">
+          <PasswordInput name="password" label="Senha" />
+          <PasswordInput
+            name="password_confirmation"
+            label="Confirmação da senha"
+          />
+        </SimpleGrid>
+      </VStack>
+
+      <Flex mt="8" justify="flex-end">
+        <HStack spacing="4">
+          <Button colorScheme="whiteAlpha">Cancelar</Button>
+          <Button colorScheme="pink">Salvar</Button>
+        </HStack>
+      </Flex>
     </DefaultPageWrapper>
   );
 }
