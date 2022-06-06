@@ -43,9 +43,8 @@ const series = [
 
 export default function DashBoard() {
   return (
-    <Flex direction="column" h="100vh">
+    <>
       <Header />
-
       <Content>
         <Sidebar />
 
@@ -69,6 +68,6 @@ export default function DashBoard() {
           </Box>
         </SimpleGrid>
       </Content>
-    </Flex>
+    </>
   );
 }
