@@ -1,10 +1,9 @@
+import { ElementType } from "react";
 import { Icon, Link, LinkProps, Text } from "@chakra-ui/react";
-import { IconType } from "react-icons";
 import NextLink from "next/link";
-import { Url } from "url";
 
 interface INavItemProps extends LinkProps {
-  icon: IconType;
+  icon: ElementType;
   text: string;
   href: string;
 }
