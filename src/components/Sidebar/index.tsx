@@ -9,11 +9,12 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useSidebarDrawer } from "../../contexts/SidebarDrawerContext";
 import SidebarNav from "./SidebarNav";
 
 export default function Sidebar() {
   const isDrawerSidebar = useBreakpointValue({ base: true, lg: false });
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onClose } = useSidebarDrawer();
 
   if (isDrawerSidebar) {
     return (
