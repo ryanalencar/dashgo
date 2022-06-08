@@ -21,11 +21,11 @@ export default function CreateUser() {
       <Divider my="6" borderColor="gray.700" />
 
       <VStack spacing="8">
-        <SimpleGrid w="100%" minChildWidth="240px" spacing="8">
+        <SimpleGrid w="100%" minChildWidth="240px" spacing={["6", "8"]}>
           <Input name="name" label="Nome completo" />
           <Input name="email" type="email" label="E-mail" />
         </SimpleGrid>
-        <SimpleGrid w="100%" minChildWidth="240px" spacing="8">
+        <SimpleGrid w="100%" minChildWidth="240px" spacing={["6", "8"]}>
           <PasswordInput name="password" label="Senha" />
           <PasswordInput
             name="password_confirmation"

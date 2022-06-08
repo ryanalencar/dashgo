@@ -14,7 +14,7 @@ export default function DefaultPageWrapper({ children }: IDefaultPageElProps) {
       <Content>
         <Sidebar />
 
-        <Box flex="1" borderRadius={8} bg="gray.800" p="8">
+        <Box flex="1" borderRadius={8} bg="gray.800" p={["6", "8"]}>
           {children}
         </Box>
       </Content>
