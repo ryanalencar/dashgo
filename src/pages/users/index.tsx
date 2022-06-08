@@ -5,6 +5,7 @@ import {
   Flex,
   Heading,
   Icon,
+  IconButton,
   Table,
   TableContainer,
   Tbody,
@@ -13,6 +14,7 @@ import {
   Th,
   Thead,
   Tr,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
@@ -21,6 +23,7 @@ import DefaultPageWrapper from "../../components/common/DefaultPageWrapper";
 import Pagination from "../../components/Pagination";
 
 export default function UserList() {
+  const isWideVersion = useBreakpointValue({ base: false, lg: true });
   const router = useRouter();
 
   return (
@@ -46,37 +49,45 @@ export default function UserList() {
         <Table colorScheme="whiteAlpha">
           <Thead>
             <Tr>
-              <Th px="6">
+              <Th px={["2", "2", "6"]}>
                 <Checkbox colorScheme="pink" />
               </Th>
               <Th>Usuário</Th>
-              <Th>Data de cadastro</Th>
+              {isWideVersion && <Th>Data de cadastro</Th>}
               <Th width="8"></Th>
             </Tr>
           </Thead>
           <Tbody>
             <Tr>
-              <Td px="6">
+              <Td px={["2", "2", "6"]}>
                 <Checkbox colorScheme="pink" />
               </Td>
               <Td>
                 <Box>
                   <Text fontWeight="bold">Ryan Alencar</Text>
-                  <Text fontSize="sm" color="gray.300">
+                  <Text fontSize={["xs", "sm"]} color="gray.300">
                     ryanalencar@gmail.com
                   </Text>
                 </Box>
               </Td>
-              <Td>04 de Junho, 2022</Td>
+              {isWideVersion && <Td>04 de Junho, 2022</Td>}
               <Td>
-                <Button
-                  size="sm"
-                  fontSize="small"
-                  colorScheme="purple"
-                  leftIcon={<Icon as={RiPencilLine} fontSize="18" />}
-                >
-                  Editar
-                </Button>
+                {isWideVersion ? (
+                  <Button
+                    size="sm"
+                    fontSize="small"
+                    colorScheme="purple"
+                    leftIcon={<Icon as={RiPencilLine} fontSize="18" />}
+                  >
+                    Editar
+                  </Button>
+                ) : (
+                  <IconButton
+                    colorScheme="purple"
+                    icon={<Icon as={RiPencilLine} fontSize="18" />}
+                    aria-label="Edit User"
+                  />
+                )}
               </Td>
             </Tr>
           </Tbody>

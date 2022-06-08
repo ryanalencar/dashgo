@@ -54,13 +54,13 @@ export default function DashBoard() {
           minChildWidth="320px"
           style={{ alignContent: "flex-start" }}
         >
-          <Box p="8" pb="4" bg="gray.800" borderRadius={8}>
+          <Box p={["4", "8"]} pb="4" bg="gray.800" borderRadius={8}>
             <Text fontSize="lg" mb="4">
               Inscritos da semana
             </Text>
             <Chart type="area" height={160} options={options} series={series} />
           </Box>
-          <Box p="8" pb="4" bg="gray.800" borderRadius={8}>
+          <Box p={["4", "8"]} pb="4" bg="gray.800" borderRadius={8}>
             <Text fontSize="lg" mb="4">
               Taxa de abertura
             </Text>
