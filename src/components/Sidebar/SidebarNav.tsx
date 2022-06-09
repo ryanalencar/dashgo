@@ -17,8 +17,8 @@ export default function SidebarNav() {
         <NavItem href="/users" icon={RiContactsLine} text="usuários" />
       </NavSection>
       <NavSection title="automação">
-        <NavItem href="" icon={RiInputMethodLine} text="formulários" />
-        <NavItem href="" icon={RiGitMergeLine} text="automação" />
+        <NavItem href="/forms" icon={RiInputMethodLine} text="formulários" />
+        <NavItem href="/automation" icon={RiGitMergeLine} text="automação" />
       </NavSection>
     </Stack>
   );

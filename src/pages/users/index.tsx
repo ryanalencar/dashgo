@@ -16,7 +16,7 @@ import {
   Tr,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 
 import DefaultPageWrapper from "../../components/common/DefaultPageWrapper";
@@ -24,7 +24,6 @@ import Pagination from "../../components/Pagination";
 
 export default function UserList() {
   const isWideVersion = useBreakpointValue({ base: false, lg: true });
-  const router = useRouter();
 
   return (
     <DefaultPageWrapper>
@@ -32,17 +31,18 @@ export default function UserList() {
         <Heading size="lg" fontWeight="normal">
           Usuários
         </Heading>
-        <Button
-          as="a"
-          size="sm"
-          fontSize="small"
-          colorScheme="pink"
-          leftIcon={<Icon as={RiAddLine} fontSize="18" />}
-          style={{ cursor: "pointer" }}
-          onClick={() => router.push("/users/create")}
-        >
-          Criar novo
-        </Button>
+        <Link href="/users/create" passHref>
+          <Button
+            as="a"
+            size="sm"
+            fontSize="small"
+            colorScheme="pink"
+            leftIcon={<Icon as={RiAddLine} fontSize="18" />}
+            style={{ cursor: "pointer" }}
+          >
+            Criar novo
+          </Button>
+        </Link>
       </Flex>
 
       <TableContainer>

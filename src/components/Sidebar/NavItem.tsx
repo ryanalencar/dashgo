@@ -1,6 +1,6 @@
 import { ElementType } from "react";
 import { Icon, Link, LinkProps, Text } from "@chakra-ui/react";
-import NextLink from "next/link";
+import ActiveLink from "../common/ActiveLink";
 
 interface INavItemProps extends LinkProps {
   icon: ElementType;
@@ -10,13 +10,18 @@ interface INavItemProps extends LinkProps {
 
 export default function NavItem({ icon, text, href, ...rest }: INavItemProps) {
   return (
-    <NextLink href={href} passHref>
-      <Link display="flex" style={{ alignContent: "center" }} {...rest}>
+    <ActiveLink href={href} passHref>
+      <Link
+        display="flex"
+        style={{ alignContent: "center" }}
+        textDecoration="pink"
+        {...rest}
+      >
         <Icon as={icon} fontSize="20" />
         <Text ml="4" fontWeight="medium" textTransform="capitalize">
           {text}
         </Text>
       </Link>
-    </NextLink>
+    </ActiveLink>
   );
 }
