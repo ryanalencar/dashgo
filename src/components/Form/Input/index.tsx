@@ -1,5 +1,6 @@
 import {
   FormControl,
+  FormErrorMessage,
   FormLabel,
   IconButton,
   Input as ChakraInput,
@@ -8,6 +9,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { forwardRef, ForwardRefRenderFunction, ReactElement } from "react";
+import { FieldError } from "react-hook-form";
 
 export interface InputProps extends ChakraInputProps {
   name: string;
@@ -15,22 +17,23 @@ export interface InputProps extends ChakraInputProps {
   icon?: ReactElement;
   onClick?: any;
   ariaLabel?: string;
+  error?: FieldError;
 }
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { name, label, icon, onClick, ariaLabel = "", ...rest }: InputProps,
+  { name, label, icon, error, onClick, ariaLabel = "", ...rest }: InputProps,
   ref
 ) => {
   return (
     <>
       {icon ? (
-        <FormControl>
+        <FormControl isInvalid={!!error}>
           <FormLabel htmlFor={name}>{label}</FormLabel>
           <InputGroup size="lg">
             <ChakraInput
               name={name}
               id={name}
-              focusBorderColor="pink.500"
+              focusBorderColor={!!error ? "red.500" : "pink.500"}
               bgColor="gray.900"
               variant="filled"
               _hover={{ bg: "gray.900" }}
@@ -46,14 +49,15 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
               />
             </InputRightElement>
           </InputGroup>
+          {!!error && <FormErrorMessage>{error?.message}</FormErrorMessage>}
         </FormControl>
       ) : (
-        <FormControl>
+        <FormControl isInvalid={!!error}>
           {!!label && <FormLabel htmlFor="email">{label}</FormLabel>}
           <ChakraInput
             name={name}
             id={name}
-            focusBorderColor="pink.500"
+            focusBorderColor={!!error ? "red.500" : "pink.500"}
             bgColor="gray.900"
             variant="filled"
             _hover={{ bg: "gray.900" }}
@@ -61,6 +65,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
             ref={ref}
             {...rest}
           />
+          {!!error && <FormErrorMessage>{error?.message}</FormErrorMessage>}
         </FormControl>
       )}
     </>

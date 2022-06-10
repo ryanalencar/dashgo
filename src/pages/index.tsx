@@ -14,7 +14,7 @@ const SignIn: NextPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm<FormData>();
 
   const handleSignIn: SubmitHandler<FormData> = async (data) => {
@@ -34,7 +34,11 @@ const SignIn: NextPage = () => {
         flexDir="column"
       >
         <Stack spacing="4">
-          <Input label="E-mail" {...register("email", { required: true })} />
+          <Input
+            label="E-mail"
+            error={errors.email}
+            {...register("email", { required: "Email is required" })}
+          />
           <PasswordInput label="Senha" {...register("password")} />
         </Stack>
 
