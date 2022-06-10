@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Input } from "../components/Form";
 import { PasswordInput } from "../components/Form/Input/PasswordInput";
 
-type FormData = {
+type SignInFormData = {
   email: string;
   password: string;
 };
@@ -25,9 +25,9 @@ const SignIn: NextPage = () => {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm<FormData>({ resolver: yupResolver(signInFormSchema) });
+  } = useForm<SignInFormData>({ resolver: yupResolver(signInFormSchema) });
 
-  const handleSignIn: SubmitHandler<FormData> = async (data) => {
+  const handleSignIn: SubmitHandler<SignInFormData> = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
   };
 
