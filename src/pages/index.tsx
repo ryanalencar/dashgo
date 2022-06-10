@@ -11,9 +11,15 @@ type FormData = {
 };
 
 const SignIn: NextPage = () => {
-  const { register, handleSubmit } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<FormData>();
 
-  const handleSignIn: SubmitHandler<FormData> = (data) => console.log(data);
+  const handleSignIn: SubmitHandler<FormData> = async (data) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+  };
 
   return (
     <Flex w="100vw" h="100vh" align="center" justify="center">
@@ -32,7 +38,13 @@ const SignIn: NextPage = () => {
           <PasswordInput label="Senha" {...register("password")} />
         </Stack>
 
-        <Button type="submit" mt="6" colorScheme="pink" size="lg">
+        <Button
+          type="submit"
+          mt="6"
+          colorScheme="pink"
+          size="lg"
+          isLoading={isSubmitting}
+        >
           Entrar
         </Button>
       </Flex>
