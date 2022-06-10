@@ -1,11 +1,14 @@
 import { InputProps as ChakraInputProps } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { useState } from "react";
+import { forwardRef, ForwardRefRenderFunction, useState } from "react";
 import { Input, InputProps } from ".";
 
 type PasswordInputProps = InputProps & ChakraInputProps;
 
-export default function PasswordInput({ label, name }: PasswordInputProps) {
+const PasswordInputBase: ForwardRefRenderFunction<
+  HTMLInputElement,
+  PasswordInputProps
+> = ({ label, name, ...rest }: PasswordInputProps, ref) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
@@ -20,6 +23,10 @@ export default function PasswordInput({ label, name }: PasswordInputProps) {
       icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
       ariaLabel={showPassword ? "Hide Password" : "Show Password"}
       onClick={handleShowPassword}
+      ref={ref}
+      {...rest}
     />
   );
-}
+};
+
+export const PasswordInput = forwardRef(PasswordInputBase);

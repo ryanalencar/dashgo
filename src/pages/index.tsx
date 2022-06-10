@@ -1,14 +1,24 @@
 import { Button, Flex, Stack } from "@chakra-ui/react";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import type { NextPage } from "next";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { Input } from "../components/Form";
-import PasswordInput from "../components/Form/Input/PasswordInput";
+import { PasswordInput } from "../components/Form/Input/PasswordInput";
+
+type FormData = {
+  email: string;
+  password: string;
+};
 
 const SignIn: NextPage = () => {
+  const { register, handleSubmit } = useForm<FormData>();
+
+  const handleSignIn: SubmitHandler<FormData> = (data) => console.log(data);
+
   return (
     <Flex w="100vw" h="100vh" align="center" justify="center">
       <Flex
+        onSubmit={handleSubmit(handleSignIn)}
         as="form"
         w="100%"
         maxW={360}
@@ -18,8 +28,8 @@ const SignIn: NextPage = () => {
         flexDir="column"
       >
         <Stack spacing="4">
-          <Input name="email" label="E-mail" />
-          <PasswordInput name="password" />
+          <Input label="E-mail" {...register("email", { required: true })} />
+          <PasswordInput label="Senha" {...register("password")} />
         </Stack>
 
         <Button type="submit" mt="6" colorScheme="pink" size="lg">
