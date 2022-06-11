@@ -6,6 +6,7 @@ import {
   Heading,
   Icon,
   IconButton,
+  Spinner,
   Table,
   TableContainer,
   Tbody,
@@ -19,18 +20,20 @@ import {
 import Link from "next/link";
 import { useEffect } from "react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
+import { useQuery } from "react-query";
 
 import DefaultPageWrapper from "../../components/common/DefaultPageWrapper";
 import Pagination from "../../components/Pagination";
 
 export default function UserList() {
-  const isWideVersion = useBreakpointValue({ base: false, lg: true });
+  const { data, isLoading, error } = useQuery("users", async () => {
+    const response = await fetch("http://localhost:3000/api/users");
+    const data = await response.json();
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/users")
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  }, []);
+    return data;
+  });
+
+  const isWideVersion = useBreakpointValue({ base: false, lg: true });
 
   return (
     <DefaultPageWrapper>
@@ -53,53 +56,65 @@ export default function UserList() {
       </Flex>
 
       <TableContainer>
-        <Table colorScheme="whiteAlpha">
-          <Thead>
-            <Tr>
-              <Th px={["2", "2", "6"]}>
-                <Checkbox colorScheme="pink" />
-              </Th>
-              <Th>Usuário</Th>
-              {isWideVersion && <Th>Data de cadastro</Th>}
-              <Th width="8"></Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td px={["2", "2", "6"]}>
-                <Checkbox colorScheme="pink" />
-              </Td>
-              <Td>
-                <Box>
-                  <Text fontWeight="bold">Ryan Alencar</Text>
-                  <Text fontSize={["xs", "sm"]} color="gray.300">
-                    ryanalencar@gmail.com
-                  </Text>
-                </Box>
-              </Td>
-              {isWideVersion && <Td>04 de Junho, 2022</Td>}
-              <Td>
-                {isWideVersion ? (
-                  <Button
-                    size="sm"
-                    fontSize="small"
-                    colorScheme="purple"
-                    leftIcon={<Icon as={RiPencilLine} fontSize="18" />}
-                  >
-                    Editar
-                  </Button>
-                ) : (
-                  <IconButton
-                    colorScheme="purple"
-                    icon={<Icon as={RiPencilLine} fontSize="18" />}
-                    aria-label="Edit User"
-                  />
-                )}
-              </Td>
-            </Tr>
-          </Tbody>
-        </Table>
-        <Pagination />
+        {isLoading ? (
+          <Flex justify="center">
+            <Spinner size="xl" color="pink.500" />
+          </Flex>
+        ) : error ? (
+          <Flex justify="start">
+            <Text color="red.400">Falha ao obter dados dos usuários.</Text>
+          </Flex>
+        ) : (
+          <>
+            <Table colorScheme="whiteAlpha">
+              <Thead>
+                <Tr>
+                  <Th px={["2", "2", "6"]}>
+                    <Checkbox colorScheme="pink" />
+                  </Th>
+                  <Th>Usuário</Th>
+                  {isWideVersion && <Th>Data de cadastro</Th>}
+                  <Th width="8"></Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td px={["2", "2", "6"]}>
+                    <Checkbox colorScheme="pink" />
+                  </Td>
+                  <Td>
+                    <Box>
+                      <Text fontWeight="bold">Ryan Alencar</Text>
+                      <Text fontSize={["xs", "sm"]} color="gray.300">
+                        ryanalencar@gmail.com
+                      </Text>
+                    </Box>
+                  </Td>
+                  {isWideVersion && <Td>04 de Junho, 2022</Td>}
+                  <Td>
+                    {isWideVersion ? (
+                      <Button
+                        size="sm"
+                        fontSize="small"
+                        colorScheme="purple"
+                        leftIcon={<Icon as={RiPencilLine} fontSize="18" />}
+                      >
+                        Editar
+                      </Button>
+                    ) : (
+                      <IconButton
+                        colorScheme="purple"
+                        icon={<Icon as={RiPencilLine} fontSize="18" />}
+                        aria-label="Edit User"
+                      />
+                    )}
+                  </Td>
+                </Tr>
+              </Tbody>
+            </Table>
+            <Pagination />
+          </>
+        )}
       </TableContainer>
     </DefaultPageWrapper>
   );
