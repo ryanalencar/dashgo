@@ -19,29 +19,13 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
-import { useQuery } from "react-query";
-import moment from "moment";
+
 import DefaultPageWrapper from "../../components/common/DefaultPageWrapper";
 import Pagination from "../../components/Pagination";
-import { api } from "../../services/api";
+import { useUsers } from "../../hooks/useUsers";
 
 export default function UserList() {
-  const { data, isLoading, isFetching, error } = useQuery(
-    "users",
-    async () => {
-      const { data } = await api.get("/users");
-
-      const users = data.users.map((user: any) => {
-        return {
-          ...user,
-          createdAt: moment(user.createdAt).format("DD/MM/YYYY"),
-        };
-      });
-
-      return users;
-    },
-    { staleTime: 1000 * 5 }
-  );
+  const { data, isLoading, isFetching, error } = useUsers();
 
   const isWideVersion = useBreakpointValue({ base: false, lg: true });
 
@@ -91,7 +75,7 @@ export default function UserList() {
                 </Tr>
               </Thead>
               <Tbody>
-                {data.map((user) => (
+                {data?.map((user) => (
                   <Tr key={user.id}>
                     <Td px={["2", "2", "6"]}>
                       <Checkbox colorScheme="pink" />
