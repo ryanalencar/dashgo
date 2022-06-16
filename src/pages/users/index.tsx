@@ -41,7 +41,7 @@ export default function UserList() {
         const response = await api.get(`/users/${userId}`);
         return response;
       },
-      { stale: 1000 * 60 * 10 }
+      { staleTime: 1000 * 60 * 10 }
     );
   };
 
