@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useMemo } from "react";
+import { _api } from "../services/api";
 
 export type SignInCredentials = {
   email: string;
@@ -19,8 +20,13 @@ const AuthContext = createContext({} as AuthContextData);
 export function AuthProvider({ children }: AuthProviderProps) {
   const isAuthenticated = false;
 
-  const signIn = async ({ email, password }: SignInCredentials) => {
-    console.log({ email, password });
+  const signIn = async (data: SignInCredentials) => {
+    try {
+      const response = await _api.post("sessions", data);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
