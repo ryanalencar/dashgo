@@ -8,6 +8,7 @@ import { theme } from "../styles/theme";
 import { SidebarDrawerProvider } from "../contexts/SidebarDrawerContext";
 import { makeServer } from "../services/mirage";
 import { queryClient } from "../services/queryClient";
+import { AuthProvider } from "../hooks/useAuth";
 
 if (process.env.NODE_ENV === "development") {
   makeServer();
@@ -15,14 +16,16 @@ if (process.env.NODE_ENV === "development") {
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <SidebarDrawerProvider>
-          <Component {...pageProps} />
-        </SidebarDrawerProvider>
-      </ChakraProvider>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme}>
+          <SidebarDrawerProvider>
+            <Component {...pageProps} />
+          </SidebarDrawerProvider>
+        </ChakraProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }
 
