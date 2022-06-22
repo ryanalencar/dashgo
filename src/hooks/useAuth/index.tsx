@@ -32,11 +32,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const response = await _api.post("sessions", data);
       const { permissions, roles, email, token, refreshToken } = response.data;
 
-      setCookie(undefined, "dashgo.token", token, {
+      setCookie(null, "dashgo.token", token, {
         maxAge: 60 * 60 * 24 * 30,
         path: "/",
       });
-      setCookie(undefined, "dashgo.refreshToken", refreshToken, {
+      setCookie(null, "dashgo.refreshToken", refreshToken, {
         maxAge: 60 * 60 * 24 * 30,
         path: "/",
       });
