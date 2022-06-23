@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
+import { signOut } from "../hooks/useAuth";
 
 type FailedRequestError = {
   onSuccess: (token: string) => void;
@@ -80,9 +81,9 @@ _api.interceptors.response.use(
           });
         });
       } else {
-        destroyCookie(null, "dashgo.token");
-        destroyCookie(null, "dashgo.refreshToken");
+        signOut();
       }
     }
+    return Promise.reject(error);
   }
 );

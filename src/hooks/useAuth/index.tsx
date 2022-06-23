@@ -1,6 +1,6 @@
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
-import { parseCookies, setCookie } from "nookies";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { _api } from "../../services/api";
 import {
   AuthContextData,
@@ -11,6 +11,12 @@ import {
 
 const AuthContext = createContext({} as AuthContextData);
 
+export function signOut() {
+  destroyCookie(null, "dashgo.token");
+  destroyCookie(null, "dashgo.refreshToken");
+  Router.push("/");
+}
+
 export function AuthProvider({ children }: AuthProviderProps) {
   const router = useRouter();
   const [user, setUser] = useState<User>({} as User);
@@ -20,10 +26,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { "dashgo.token": token } = parseCookies();
 
     if (token) {
-      _api.get("me").then((res) => {
-        const { email, permissions, roles } = res.data;
-        setUser({ email, permissions, roles });
-      });
+      _api
+        .get("me")
+        .then((res) => {
+          const { email, permissions, roles } = res.data;
+          setUser({ email, permissions, roles });
+        })
+        .catch(() => {
+          signOut();
+        });
     }
   }, []);
 
