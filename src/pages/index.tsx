@@ -1,5 +1,5 @@
 import { Button, Flex, Stack } from "@chakra-ui/react";
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Input } from "../components/Form";
 import { PasswordInput } from "../components/Form/Input/PasswordInput";
 import { SignInCredentials, useAuth } from "../hooks/useAuth";
+import { parseCookies } from "nookies";
 
 const signInFormSchema = yup
   .object()
@@ -64,3 +65,20 @@ const SignIn: NextPage = () => {
 };
 
 export default SignIn;
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const cookies = parseCookies(ctx);
+
+  if (cookies["dashgo.token"]) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
