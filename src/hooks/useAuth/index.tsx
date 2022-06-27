@@ -1,7 +1,9 @@
 import Router, { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
-import { _api } from "../../services/api";
+
+import { _api } from "../../services/apiClient";
+
 import {
   AuthContextData,
   AuthProviderProps,
