@@ -7,6 +7,7 @@ import Content from "../components/common/Content";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { setupAPIClient } from "../services/api";
+import { destroyCookie } from "nookies";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -79,7 +80,6 @@ export const getServerSideProps = withSSRAuth(async (ctx) => {
   const apiClient = setupAPIClient(ctx);
 
   const response = await apiClient.get("/me");
-  console.log(response.data);
 
   return {
     props: {},
