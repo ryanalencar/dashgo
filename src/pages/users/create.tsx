@@ -20,6 +20,7 @@ import { Input } from "../../components/Form";
 import { PasswordInput } from "../../components/Form/Input/PasswordInput";
 import { api } from "../../services/api";
 import { queryClient } from "../../services/queryClient";
+import { withSSRAuth } from "../../utils/withSSRAuth";
 
 const createUserFormSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
@@ -126,3 +127,10 @@ export default function CreateUser() {
     </DefaultPageWrapper>
   );
 }
+
+export const getServerSideProps = withSSRAuth(
+  async (ctx) => {
+    return { props: {} };
+  },
+  { permissions: ["createUser"], roles: ["admin"] }
+);

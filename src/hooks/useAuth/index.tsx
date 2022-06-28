@@ -11,11 +11,16 @@ import {
   User,
 } from "./types";
 
+let authChannel: BroadcastChannel;
+
 const AuthContext = createContext({} as AuthContextData);
 
 export function signOut() {
   destroyCookie(null, "dashgo.token");
   destroyCookie(null, "dashgo.refreshToken");
+
+  authChannel.postMessage("signOut");
+
   Router.push("/");
 }
 
@@ -23,6 +28,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const router = useRouter();
   const [user, setUser] = useState<User>({} as User);
   const isAuthenticated = !!user;
+
+  useEffect(() => {
+    authChannel = new BroadcastChannel("auth");
+    authChannel.onmessage = (message) => {
+      switch (message.data) {
+        case "signOut":
+          signOut();
+          break;
+        case "signIn":
+          router.push("/dashboard");
+          break;
+        default:
+          break;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const { "dashgo.token": token } = parseCookies();
@@ -58,6 +79,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       _api.defaults.headers["Authorization"] = `Bearer ${token}`;
       router.push("/dashboard");
+
+      authChannel.postMessage("signIn");
     } catch (error) {
       console.error(error);
     }
