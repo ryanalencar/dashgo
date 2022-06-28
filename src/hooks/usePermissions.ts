@@ -1,3 +1,4 @@
+import { validateUserPermissions } from "../utils/validateUserPermissions";
 import { useAuth } from "./useAuth";
 
 type UseCanParams = {
@@ -10,21 +11,11 @@ export function usePermissions({ permissions, roles }: UseCanParams) {
 
   if (!isAuthenticated) return false;
 
-  if (permissions?.length > 0) {
-    const hasAllPermissions = permissions?.every((permission) => {
-      return user.permissions.includes(permission);
-    });
+  const userHasValidPermissions = validateUserPermissions({
+    user,
+    roles,
+    permissions,
+  });
 
-    if (!hasAllPermissions) return false;
-  }
-
-  if (roles?.length > 0) {
-    const hasAllRoles = roles?.some((role) => {
-      return user.roles.includes(role);
-    });
-
-    if (!hasAllPermissions) return false;
-  }
-
-  return true;
+  return userHasValidPermissions;
 }
